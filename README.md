@@ -1,24 +1,45 @@
-# README
+# Shared Expense Manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple Rails application to help couples manage shared expenses and monthly settlements.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- Record shared expenses
+- Record personal transfers
+- Automatic monthly settlement calculation
+- Local-first and simple design
 
-* System dependencies
+## Built With
 
-* Configuration
+- Ruby 3.2.6
+- Ruby on Rails 8.0.4
+- SQLite 3
 
-* Database creation
+## Getting Started
 
-* Database initialization
+### 1. Clone the repository
 
-* How to run the test suite
+```bash
+$ git clone https://github.com/ckanayama/shared-expense-manager.git
+$ cd shared-expense-manager
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### 2. Setup
 
-* Deployment instructions
+```bash
+$ bundle install
+$ bin/rails db:create
+$ bin/rails db:migrate
+```
 
-* ...
+### 3. Start the server
+
+```bash
+$ bin/dev
+```
+
+## Usage
+
+1. Add expenses with date, payer, and amount.
+2. Select a month to view monthly summary.
+3. The system calculates how much each person should settle.
