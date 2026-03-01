@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Expense, type: :model do
   describe 'amount_positive' do
-    let(:expense) { FactoryBot.build(:expense, amount:) }
+    let(:expense) { build(:expense, amount:) }
 
     context 'amount is positive' do
       let(:amount) { 100 }
