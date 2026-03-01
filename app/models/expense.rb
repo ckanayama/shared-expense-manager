@@ -8,11 +8,11 @@ class Expense < ApplicationRecord
     shared_account: 0,
     wife: 1,
     husband: 2
-  }
+  }, prefix: true
 
   enum :charged_to, {
     shared: 0,
     wife: 1,
     husband: 2
-  }
+  }, prefix: true
 end
