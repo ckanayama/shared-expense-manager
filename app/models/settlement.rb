@@ -19,4 +19,8 @@ class Settlement
   def shared
     SharedSettlement.new(@expenses)
   end
+
+  def shared_card
+    SharedAccountSettlement.new(@expenses)
+  end
 end
