@@ -22,6 +22,6 @@ class SharedSettlement
     end
 
     def balance
-      (husband_paid - wife_paid) / 2
+      (husband_paid - wife_paid) / 2 # NOTE: 端数は切り捨てる
     end
 end
