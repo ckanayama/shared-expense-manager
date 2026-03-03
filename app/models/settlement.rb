@@ -1,11 +1,15 @@
 class Settlement
-  validates :start_datetime, presence: true
-  validates :end_datetime, presence: true
+  include ActiveModel::Model
 
-  def initialize(start_date, end_date)
-    @start_date = start_date
-    @end_date = end_date
-    @expenses = Expense.where(occurred_on: start_datetime..end_datetime)
+  attr_reader :start_at, :end_at
+
+  validates :start_at, presence: true
+  validates :end_at, presence: true
+
+  def initialize(start_at, end_at)
+    @start_at = start_at
+    @end_at = end_at
+    @expenses = Expense.where(occurred_on: start_at..end_at)
   end
 
   def direct
