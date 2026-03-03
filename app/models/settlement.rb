@@ -9,18 +9,22 @@ class Settlement
   def initialize(start_at, end_at)
     @start_at = start_at
     @end_at = end_at
-    @expenses = Expense.where(occurred_on: start_at..end_at)
   end
 
   def direct
-    DirectSettlement.new(@expenses)
+    DirectSettlement.new(expenses)
   end
 
   def shared
-    SharedSettlement.new(@expenses)
+    SharedSettlement.new(expenses)
   end
 
   def shared_card
-    SharedAccountSettlement.new(@expenses)
+    SharedAccountSettlement.new(expenses)
   end
+
+  private
+    def expenses
+      @expenses ||= Expense.where(occurred_on: start_at..end_at)
+    end
 end
