@@ -11,4 +11,8 @@ class Settlement
   def direct
     DirectSettlement.new(@expenses)
   end
+
+  def shared
+    SharedSettlement.new(@expenses)
+  end
 end
