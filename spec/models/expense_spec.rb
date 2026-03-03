@@ -12,7 +12,7 @@ RSpec.describe Expense, type: :model do
       end
     end
 
-    context 'amount is positive' do
+    context 'amount is zero' do
       let(:amount) { 0 }
 
       it 'be valid' do
