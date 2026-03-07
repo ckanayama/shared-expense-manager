@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   root "statements#new"
-  resources :statements, only: [:new, :create, :index, :edit, :update, :destroy]
-  resource :settlement, only: [:show]
+  resources :statements, only: [ :new, :create, :index, :edit, :update, :destroy ]
+  resource :settlement, only: [ :show ]
 end
