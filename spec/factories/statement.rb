@@ -4,6 +4,7 @@ FactoryBot.define do
     paid_by { :wife }
     charged_to { :husband }
     date { Time.zone.today }
-    summary { "テスト" }
+    description { "テスト" }
+    payee
   end
 end
