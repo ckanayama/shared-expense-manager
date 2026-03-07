@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_28_042235) do
-  create_table "expenses", force: :cascade do |t|
+ActiveRecord::Schema[8.1].define(version: 2026_03_07_022202) do
+  create_table "statements", force: :cascade do |t|
     t.integer "amount", null: false
     t.integer "charged_to", null: false
     t.datetime "created_at", null: false
-    t.string "memo"
-    t.date "occurred_on", null: false
+    t.date "date", null: false
     t.integer "paid_by", null: false
+    t.string "summary", null: false
     t.datetime "updated_at", null: false
-    t.index ["charged_to"], name: "index_expenses_on_charged_to"
-    t.index ["occurred_on"], name: "index_expenses_on_occurred_on"
-    t.index ["paid_by"], name: "index_expenses_on_paid_by"
+    t.index ["charged_to"], name: "index_statements_on_charged_to"
+    t.index ["date"], name: "index_statements_on_date"
+    t.index ["paid_by"], name: "index_statements_on_paid_by"
     t.check_constraint "amount > 0", name: "amount_positive"
+    t.check_constraint "paid_by != charged_to", name: "paid_by_not_equal_to_charged_to"
   end
 end
