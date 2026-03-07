@@ -15,10 +15,21 @@ ja:
           attributes:
             amount:
               greater_than: は0より大きい値にしてください
+  enums:
+    statement:
+      paid_by:
+        wife: 妻
+        husband: 夫
+        shared_account: 共用口座
+      charged_to:
+        shared: 共用
+        wife: 妻
+        husband: 夫
   helpers:
     submit:
       statement:
         create: 明細を作成する
+        update: 明細を更新する
   errors:
     format: "%{attribute}%{message}"
     messages:

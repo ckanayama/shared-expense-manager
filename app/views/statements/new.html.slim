@@ -30,3 +30,25 @@ p
     = form.select :charged_to, [["妻", "wife"], ["夫", "husband"], ["共用", "shared"]], prompt: "選択してください"
   div
     = form.submit
+
+- if @recent_statements.present?
+  h2
+    | 最近の明細
+  table
+    thead
+      tr
+        th 日付
+        th 摘要
+        th 金額
+        th 支払者
+        th 負担者
+        th
+    tbody
+      - @recent_statements.each do |statement|
+        tr
+          td = statement.date.strftime("%m/%d")
+          td = statement.summary
+          td = number_to_currency(statement.amount, unit: "¥", precision: 0)
+          td = t("enums.statement.paid_by.#{statement.paid_by}")
+          td = t("enums.statement.charged_to.#{statement.charged_to}")
+          td = link_to "編集", edit_statement_path(statement)

@@ -2,6 +2,8 @@ h1
   = "#{@settlement.year}年#{@settlement.month}月の精算"
 p
   = link_to "明細を入力する", new_statement_path
+  |  /
+  = link_to "この月の明細一覧", statements_path(year: @settlement.year, month: @settlement.month)
 = form_with url: settlement_path, method: :get do |form|
   div
     = form.label :year, "年"
