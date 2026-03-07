@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+      statement: 明細
+    attributes:
+      statement:
+        date: 日付
+        amount: 金額
+        summary: 摘要
+        paid_by: 支払者
+        charged_to: 負担者
+    errors:
+      models:
+        statement:
+          attributes:
+            amount:
+              greater_than: は0より大きい値にしてください
+  helpers:
+    submit:
+      statement:
+        create: 明細を作成する
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: を入力してください
+      not_a_number: は数値で入力してください
+      greater_than: は%{count}より大きい値にしてください

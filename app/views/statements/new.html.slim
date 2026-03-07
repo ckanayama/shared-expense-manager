@@ -1,0 +1,30 @@
+h1
+  | 明細入力
+- if notice.present?
+  p#notice
+    = notice
+- if @statement.errors.any?
+  #error_explanation
+
+  ul
+    - @statement.errors.full_messages.each do |message|
+      li
+        = message
+= form_with(model: @statement) do |form|
+  div
+    = form.label :date
+    = form.date_field :date
+  div
+    = form.label :amount
+    = form.number_field :amount, min: 1
+  div
+    = form.label :summary
+    = form.text_field :summary
+  div
+    = form.label :paid_by
+    = form.select :paid_by, [["妻", "wife"], ["夫", "husband"], ["共用口座", "shared_account"]], prompt: "選択してください"
+  div
+    = form.label :charged_to
+    = form.select :charged_to, [["妻", "wife"], ["夫", "husband"], ["共用", "shared"]], prompt: "選択してください"
+  div
+    = form.submit
