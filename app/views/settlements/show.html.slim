@@ -1,5 +1,5 @@
 h1
-  = "#{@settlement.year}年#{@settlement.month}月の精算"
+  = t("settlement.title", year: @settlement.year, month: @settlement.month)
 p
   = link_to "明細を入力する", new_statement_path
   |  /
@@ -13,57 +13,57 @@ p
     = form.submit "表示"
 
 h2
-  | 直接精算
+  = t("settlement.direct")
 table
   thead
     tr
-      th 支払者
-      th 負担者
-      th 金額
+      th = Statement.human_attribute_name(:paid_by)
+      th = Statement.human_attribute_name(:charged_to)
+      th = Statement.human_attribute_name(:amount)
   tbody
     tr
-      td 夫
-      td 妻
+      td = t("enums.statement.paid_by.husband")
+      td = t("enums.statement.paid_by.wife")
       td = number_to_currency(@settlement.direct.to_wife, unit: "¥", precision: 0)
     tr
-      td 妻
-      td 夫
+      td = t("enums.statement.paid_by.wife")
+      td = t("enums.statement.paid_by.husband")
       td = number_to_currency(@settlement.direct.to_husband, unit: "¥", precision: 0)
 
 h2
-  | 共用精算
+  = t("settlement.shared")
 table
   thead
     tr
-      th 支払者
-      th 負担者
-      th 金額
+      th = Statement.human_attribute_name(:paid_by)
+      th = Statement.human_attribute_name(:charged_to)
+      th = Statement.human_attribute_name(:amount)
   tbody
     tr
-      td 夫
-      td 妻
+      td = t("enums.statement.paid_by.husband")
+      td = t("enums.statement.paid_by.wife")
       td = number_to_currency(@settlement.shared.to_wife, unit: "¥", precision: 0)
     tr
-      td 妻
-      td 夫
+      td = t("enums.statement.paid_by.wife")
+      td = t("enums.statement.paid_by.husband")
       td = number_to_currency(@settlement.shared.to_husband, unit: "¥", precision: 0)
 
 h2
-  | 共用口座精算
+  = t("settlement.shared_card")
 table
   thead
     tr
-      th 支払者
-      th 負担者
-      th 金額
+      th = Statement.human_attribute_name(:paid_by)
+      th = Statement.human_attribute_name(:charged_to)
+      th = Statement.human_attribute_name(:amount)
   tbody
     tr
-      td 共用口座
-      td 妻
+      td = t("enums.statement.paid_by.shared_account")
+      td = t("enums.statement.paid_by.wife")
       td = number_to_currency(@settlement.shared_card.to_wife, unit: "¥", precision: 0)
     tr
-      td 共用口座
-      td 夫
+      td = t("enums.statement.paid_by.shared_account")
+      td = t("enums.statement.paid_by.husband")
       td = number_to_currency(@settlement.shared_card.to_husband, unit: "¥", precision: 0)
 
 h2

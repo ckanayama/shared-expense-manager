@@ -26,6 +26,19 @@ ja:
         shared: 共用
         wife: 妻
         husband: 夫
+  settlement:
+    title: "%{year}年%{month}月の精算"
+    direct: 直接精算
+    shared: 共用精算
+    shared_card: 共用口座精算
+    net_amount: 最終精算額
+    net_to_wife: "夫が妻に %{amount} 支払う"
+    net_to_husband: "妻が夫に %{amount} 支払う"
+    net_zero: 精算不要
+    repay_shared_account: 共用口座への返済
+    repay_wife: "妻が共用口座に %{amount} 返済"
+    repay_husband: "夫が共用口座に %{amount} 返済"
+    repay_total: "合計 %{amount} を共用口座に入金"
   helpers:
     submit:
       statement:
