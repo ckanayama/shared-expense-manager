@@ -1,0 +1,77 @@
+h1
+  = "#{@settlement.year}年#{@settlement.month}月の精算"
+p
+  = link_to "明細を入力する", new_statement_path
+= form_with url: settlement_path, method: :get do |form|
+  div
+    = form.label :year, "年"
+    = form.select :year, (2024..Date.current.year).to_a.reverse, selected: @settlement.year
+    = form.label :month, "月"
+    = form.select :month, (1..12).to_a, selected: @settlement.month
+    = form.submit "表示"
+
+h2
+  | 直接精算
+table
+  thead
+    tr
+      th 支払者
+      th 負担者
+      th 金額
+  tbody
+    tr
+      td 夫
+      td 妻
+      td = number_to_currency(@settlement.direct.to_wife, unit: "¥", precision: 0)
+    tr
+      td 妻
+      td 夫
+      td = number_to_currency(@settlement.direct.to_husband, unit: "¥", precision: 0)
+
+h2
+  | 共用精算
+table
+  thead
+    tr
+      th 支払者
+      th 負担者
+      th 金額
+  tbody
+    tr
+      td 夫
+      td 妻
+      td = number_to_currency(@settlement.shared.to_wife, unit: "¥", precision: 0)
+    tr
+      td 妻
+      td 夫
+      td = number_to_currency(@settlement.shared.to_husband, unit: "¥", precision: 0)
+
+h2
+  | 共用口座精算
+table
+  thead
+    tr
+      th 支払者
+      th 負担者
+      th 金額
+  tbody
+    tr
+      td 共用口座
+      td 妻
+      td = number_to_currency(@settlement.shared_card.to_wife, unit: "¥", precision: 0)
+    tr
+      td 共用口座
+      td 夫
+      td = number_to_currency(@settlement.shared_card.to_husband, unit: "¥", precision: 0)
+
+h2
+  | 最終精算額
+- net = @settlement.net_amount
+p
+  - if net > 0
+    = "夫が妻に #{number_to_currency(net, unit: '¥', precision: 0)} 支払う"
+  - elsif net < 0
+    = "妻が夫に #{number_to_currency(-net, unit: '¥', precision: 0)} 支払う"
+  - else
+    | 精算不要
+

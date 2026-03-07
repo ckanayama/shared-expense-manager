@@ -1,5 +1,7 @@
 h1
   | 明細入力
+p
+  = link_to "月ごとの精算結果を見る", settlement_path
 - if notice.present?
   p#notice
     = notice

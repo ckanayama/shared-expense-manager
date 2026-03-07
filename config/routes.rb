@@ -11,4 +11,5 @@ Rails.application.routes.draw do
 
   root "statements#new"
   resources :statements, only: [:new, :create]
+  resource :settlement, only: [:show]
 end
