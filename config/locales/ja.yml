@@ -6,7 +6,8 @@ ja:
       statement:
         date: 日付
         amount: 金額
-        summary: 摘要
+        description: 摘要
+        payee: 支払い先
         paid_by: 支払者
         charged_to: 負担者
     errors:

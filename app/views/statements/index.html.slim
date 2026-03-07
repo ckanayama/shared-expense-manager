@@ -15,6 +15,7 @@ p
     thead
       tr
         th 日付
+        th 支払い先
         th 摘要
         th 金額
         th 支払者
@@ -25,7 +26,8 @@ p
       - @statements.each do |statement|
         tr
           td = statement.date.strftime("%m/%d")
-          td = statement.summary
+          td = statement.payee&.name
+          td = statement.description
           td = number_to_currency(statement.amount, unit: "¥", precision: 0)
           td = t("enums.statement.paid_by.#{statement.paid_by}")
           td = t("enums.statement.charged_to.#{statement.charged_to}")

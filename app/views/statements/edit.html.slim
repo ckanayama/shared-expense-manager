@@ -14,8 +14,11 @@ h1
     = form.label :amount
     = form.number_field :amount, min: 1
   div
-    = form.label :summary
-    = form.text_field :summary
+    = form.label :payee_id, "支払い先"
+    = form.collection_select :payee_id, Payee.order(:name), :id, :name, prompt: "選択してください"
+  div
+    = form.label :description
+    = form.text_field :description
   div
     = form.label :paid_by
     = form.select :paid_by, [["妻", "wife"], ["夫", "husband"], ["共用口座", "shared_account"]]

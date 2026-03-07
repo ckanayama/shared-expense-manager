@@ -20,8 +20,11 @@ p
     = form.label :amount
     = form.number_field :amount, min: 1
   div
-    = form.label :summary
-    = form.text_field :summary
+    = form.label :payee_id, "支払い先"
+    = form.collection_select :payee_id, Payee.order(:name), :id, :name, prompt: "選択してください"
+  div
+    = form.label :description
+    = form.text_field :description
   div
     = form.label :paid_by
     = form.select :paid_by, [["妻", "wife"], ["夫", "husband"], ["共用口座", "shared_account"]], prompt: "選択してください"
@@ -38,6 +41,7 @@ p
     thead
       tr
         th 日付
+        th 支払い先
         th 摘要
         th 金額
         th 支払者
@@ -47,7 +51,8 @@ p
       - @recent_statements.each do |statement|
         tr
           td = statement.date.strftime("%m/%d")
-          td = statement.summary
+          td = statement.payee&.name
+          td = statement.description
           td = number_to_currency(statement.amount, unit: "¥", precision: 0)
           td = t("enums.statement.paid_by.#{statement.paid_by}")
           td = t("enums.statement.charged_to.#{statement.charged_to}")

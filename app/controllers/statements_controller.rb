@@ -4,12 +4,12 @@ class StatementsController < ApplicationController
     month = (params[:month] || Date.current.month).to_i
     @year = year
     @month = month
-    @statements = Statement.where(date: Date.new(year, month)..Date.new(year, month, -1)).order(:date)
+    @statements = Statement.includes(:payee).where(date: Date.new(year, month)..Date.new(year, month, -1)).order(:date)
   end
 
   def new
     @statement = Statement.new(date: Date.current)
-    @recent_statements = Statement.order(date: :desc).limit(5)
+    @recent_statements = Statement.includes(:payee).order(date: :desc).limit(5)
   end
 
   def create
@@ -18,7 +18,7 @@ class StatementsController < ApplicationController
     if @statement.save
       redirect_to new_statement_path, notice: "明細を保存しました"
     else
-      @recent_statements = Statement.order(date: :desc).limit(5)
+      @recent_statements = Statement.includes(:payee).order(date: :desc).limit(5)
       render :new, status: :unprocessable_entity
     end
   end
@@ -48,6 +48,6 @@ class StatementsController < ApplicationController
   private
 
   def statement_params
-    params.require(:statement).permit(:date, :amount, :summary, :paid_by, :charged_to)
+    params.require(:statement).permit(:date, :amount, :description, :payee_id, :paid_by, :charged_to)
   end
 end

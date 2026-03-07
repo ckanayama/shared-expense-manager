@@ -3,7 +3,9 @@ class Statement < ApplicationRecord
   validates :amount, numericality: { greater_than: 0 }
   validates :paid_by, presence: true
   validates :charged_to, presence: true
-  validates :summary, presence: true
+  validates :description, presence: true
+
+  belongs_to :payee, optional: true
   validate :paid_by_and_charged_to_must_differ
 
   enum :paid_by, {
