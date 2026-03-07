@@ -9,7 +9,7 @@ ja:
         description: 摘要
         payee: 支払い先
         paid_by: 支払者
-        charged_to: 負担者
+        charged_to: 本来の負担者
     errors:
       models:
         statement:

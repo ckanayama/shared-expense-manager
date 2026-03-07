@@ -24,8 +24,8 @@ class Settlement
   end
 
   def net_amount
-    to_wife = direct.to_wife + shared.to_wife + shared_card.to_wife
-    to_husband = direct.to_husband + shared.to_husband + shared_card.to_husband
+    to_wife = direct.to_wife + shared.to_wife
+    to_husband = direct.to_husband + shared.to_husband
     to_wife - to_husband
   end
 

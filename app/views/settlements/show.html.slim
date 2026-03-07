@@ -66,14 +66,26 @@ table
       td = t("enums.statement.paid_by.husband")
       td = number_to_currency(@settlement.shared_card.to_husband, unit: "¥", precision: 0)
 
+hr
+
 h2
-  | 最終精算額
+  = t("settlement.net_amount")
 - net = @settlement.net_amount
 p
   - if net > 0
-    = "夫が妻に #{number_to_currency(net, unit: '¥', precision: 0)} 支払う"
+    = t("settlement.net_to_husband", amount: number_to_currency(net, unit: "¥", precision: 0))
   - elsif net < 0
-    = "妻が夫に #{number_to_currency(-net, unit: '¥', precision: 0)} 支払う"
+    = t("settlement.net_to_wife", amount: number_to_currency(-net, unit: "¥", precision: 0))
   - else
-    | 精算不要
+    = t("settlement.net_zero")
 
+h2
+  = t("settlement.repay_shared_account")
+- wife_repay = @settlement.shared_card.to_wife
+- husband_repay = @settlement.shared_card.to_husband
+p
+  = t("settlement.repay_wife", amount: number_to_currency(wife_repay, unit: "¥", precision: 0))
+p
+  = t("settlement.repay_husband", amount: number_to_currency(husband_repay, unit: "¥", precision: 0))
+p
+  = t("settlement.repay_total", amount: number_to_currency(wife_repay + husband_repay, unit: "¥", precision: 0))
