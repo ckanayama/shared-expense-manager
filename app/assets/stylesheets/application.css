@@ -1,10 +1,269 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* ===== Base ===== */
+:root {
+  --color-bg: #fcf2eb;
+  --color-surface: #fff;
+  --color-primary: #0077d0;
+  --color-primary-light: #e8f2fc;
+  --color-text: #333;
+  --color-text-muted: #777;
+  --color-border: #e0d6cf;
+  --color-danger: #d04040;
+  --color-success: #2a8a4a;
+  --radius: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.8;
+  padding: 24px 16px 48px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ===== Typography ===== */
+h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 4px;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid var(--color-primary);
+  margin: 32px 0;
+}
+
+/* ===== Links ===== */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Navigation ===== */
+.nav {
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.nav a + a::before {
+  content: " / ";
+  color: var(--color-text-muted);
+}
+
+/* ===== Notice ===== */
+#notice {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+/* ===== Errors ===== */
+#error_explanation {
+  background: #fde8e8;
+  color: var(--color-danger);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+#error_explanation ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* ===== Forms ===== */
+form {
+  background: var(--color-surface);
+  padding: 20px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+
+.form-field {
+  margin-bottom: 14px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--color-bg);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.form-inline label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.form-inline select {
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--color-bg);
+  width: auto;
+}
+
+.form-actions {
+  margin-top: 16px;
+}
+
+input[type="submit"],
+button[type="submit"] {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+  opacity: 0.85;
+}
+
+/* ===== Tables ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+thead th {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--color-primary-light);
+}
+
+td.actions {
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+td.actions a {
+  margin-right: 8px;
+}
+
+td.amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Result card ===== */
+.result-card {
+  background: var(--color-surface);
+  padding: 20px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+
+.result-card p {
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+.result-highlight {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.result-total {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+  font-weight: 600;
+}
+
+/* ===== Empty state ===== */
+.empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 32px;
+}
+
+/* ===== Utility ===== */
+.mb-0 { margin-bottom: 0; }
+.mt-16 { margin-top: 16px; }

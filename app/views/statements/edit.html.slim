@@ -7,25 +7,25 @@ h1
         li
           = message
 = form_with(model: @statement) do |form|
-  div
+  .form-field
     = form.label :date
     = form.date_field :date
-  div
+  .form-field
     = form.label :amount
     = form.number_field :amount, min: 1
-  div
+  .form-field
     = form.label :payee_id, "支払い先"
     = form.collection_select :payee_id, Payee.order(:name), :id, :name, prompt: "選択してください"
-  div
+  .form-field
     = form.label :description
     = form.text_field :description
-  div
+  .form-field
     = form.label :paid_by
     = form.select :paid_by, [["妻", "wife"], ["夫", "husband"], ["共用口座", "shared_account"]]
-  div
+  .form-field
     = form.label :charged_to
     = form.select :charged_to, [["妻", "wife"], ["夫", "husband"], ["共用", "shared"]]
-  div
+  .form-actions
     = form.submit
-p
+p.nav.mt-16
   = link_to "戻る", statements_path(year: @statement.date.year, month: @statement.date.month)

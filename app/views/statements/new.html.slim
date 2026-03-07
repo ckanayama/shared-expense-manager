@@ -1,37 +1,36 @@
 h1
   | 明細入力
-p
+p.nav
   = link_to "月ごとの精算結果を見る", settlement_path
 - if notice.present?
   p#notice
     = notice
 - if @statement.errors.any?
   #error_explanation
-
-  ul
-    - @statement.errors.full_messages.each do |message|
-      li
-        = message
+    ul
+      - @statement.errors.full_messages.each do |message|
+        li
+          = message
 = form_with(model: @statement) do |form|
-  div
+  .form-field
     = form.label :date
     = form.date_field :date
-  div
+  .form-field
     = form.label :amount
     = form.number_field :amount, min: 1
-  div
+  .form-field
     = form.label :payee_id, "支払い先"
     = form.collection_select :payee_id, Payee.order(:name), :id, :name, prompt: "選択してください"
-  div
+  .form-field
     = form.label :description
     = form.text_field :description
-  div
+  .form-field
     = form.label :paid_by
     = form.select :paid_by, [["妻", "wife"], ["夫", "husband"], ["共用口座", "shared_account"]], prompt: "選択してください"
-  div
+  .form-field
     = form.label :charged_to
     = form.select :charged_to, [["妻", "wife"], ["夫", "husband"], ["共用", "shared"]], prompt: "選択してください"
-  div
+  .form-actions
     = form.submit
 
 - if @recent_statements.present?
@@ -53,7 +52,7 @@ p
           td = statement.date.strftime("%m/%d")
           td = statement.payee&.name
           td = statement.description
-          td = number_to_currency(statement.amount, unit: "¥", precision: 0)
+          td.amount = number_to_currency(statement.amount, unit: "¥", precision: 0)
           td = t("enums.statement.paid_by.#{statement.paid_by}")
           td = t("enums.statement.charged_to.#{statement.charged_to}")
-          td = link_to "編集", edit_statement_path(statement)
+          td.actions = link_to "編集", edit_statement_path(statement)

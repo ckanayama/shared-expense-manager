@@ -1,11 +1,10 @@
 h1
   = t("settlement.title", year: @settlement.year, month: @settlement.month)
-p
+p.nav
   = link_to "明細を入力する", new_statement_path
-  |  /
   = link_to "この月の明細一覧", statements_path(year: @settlement.year, month: @settlement.month)
-= form_with url: settlement_path, method: :get do |form|
-  div
+= form_with url: settlement_path, method: :get, class: "mb-0" do |form|
+  .form-inline
     = form.label :year, "年"
     = form.select :year, (2024..Date.current.year).to_a.reverse, selected: @settlement.year
     = form.label :month, "月"
@@ -24,11 +23,11 @@ table
     tr
       td = t("enums.statement.paid_by.husband")
       td = t("enums.statement.paid_by.wife")
-      td = number_to_currency(@settlement.direct.to_wife, unit: "¥", precision: 0)
+      td.amount = number_to_currency(@settlement.direct.to_wife, unit: "¥", precision: 0)
     tr
       td = t("enums.statement.paid_by.wife")
       td = t("enums.statement.paid_by.husband")
-      td = number_to_currency(@settlement.direct.to_husband, unit: "¥", precision: 0)
+      td.amount = number_to_currency(@settlement.direct.to_husband, unit: "¥", precision: 0)
 
 h2
   = t("settlement.shared")
@@ -42,11 +41,11 @@ table
     tr
       td = t("enums.statement.paid_by.husband")
       td = t("enums.statement.paid_by.wife")
-      td = number_to_currency(@settlement.shared.to_wife, unit: "¥", precision: 0)
+      td.amount = number_to_currency(@settlement.shared.to_wife, unit: "¥", precision: 0)
     tr
       td = t("enums.statement.paid_by.wife")
       td = t("enums.statement.paid_by.husband")
-      td = number_to_currency(@settlement.shared.to_husband, unit: "¥", precision: 0)
+      td.amount = number_to_currency(@settlement.shared.to_husband, unit: "¥", precision: 0)
 
 h2
   = t("settlement.shared_card")
@@ -60,32 +59,34 @@ table
     tr
       td = t("enums.statement.paid_by.shared_account")
       td = t("enums.statement.paid_by.wife")
-      td = number_to_currency(@settlement.shared_card.to_wife, unit: "¥", precision: 0)
+      td.amount = number_to_currency(@settlement.shared_card.to_wife, unit: "¥", precision: 0)
     tr
       td = t("enums.statement.paid_by.shared_account")
       td = t("enums.statement.paid_by.husband")
-      td = number_to_currency(@settlement.shared_card.to_husband, unit: "¥", precision: 0)
+      td.amount = number_to_currency(@settlement.shared_card.to_husband, unit: "¥", precision: 0)
 
 hr
 
 h2
   = t("settlement.net_amount")
-- net = @settlement.net_amount
-p
-  - if net > 0
-    = t("settlement.net_to_husband", amount: number_to_currency(net, unit: "¥", precision: 0))
-  - elsif net < 0
-    = t("settlement.net_to_wife", amount: number_to_currency(-net, unit: "¥", precision: 0))
-  - else
-    = t("settlement.net_zero")
+.result-card
+  - net = @settlement.net_amount
+  p.result-highlight
+    - if net > 0
+      = t("settlement.net_to_husband", amount: number_to_currency(net, unit: "¥", precision: 0))
+    - elsif net < 0
+      = t("settlement.net_to_wife", amount: number_to_currency(-net, unit: "¥", precision: 0))
+    - else
+      = t("settlement.net_zero")
 
 h2
   = t("settlement.repay_shared_account")
 - wife_repay = @settlement.shared_card.to_wife
 - husband_repay = @settlement.shared_card.to_husband
-p
-  = t("settlement.repay_wife", amount: number_to_currency(wife_repay, unit: "¥", precision: 0))
-p
-  = t("settlement.repay_husband", amount: number_to_currency(husband_repay, unit: "¥", precision: 0))
-p
-  = t("settlement.repay_total", amount: number_to_currency(wife_repay + husband_repay, unit: "¥", precision: 0))
+.result-card
+  p
+    = t("settlement.repay_wife", amount: number_to_currency(wife_repay, unit: "¥", precision: 0))
+  p
+    = t("settlement.repay_husband", amount: number_to_currency(husband_repay, unit: "¥", precision: 0))
+  p.result-total
+    = t("settlement.repay_total", amount: number_to_currency(wife_repay + husband_repay, unit: "¥", precision: 0))

@@ -1,15 +1,14 @@
 h1
   = "#{@year}年#{@month}月の明細"
-p
+p.nav
   = link_to "明細を入力する", new_statement_path
-  |  /
   = link_to "精算結果を見る", settlement_path(year: @year, month: @month)
 - if notice.present?
   p#notice
     = notice
 
 - if @statements.empty?
-  p この月の明細はありません。
+  p.empty この月の明細はありません。
 - else
   table
     thead
@@ -21,15 +20,15 @@ p
         th 支払者
         th 負担者
         th
-        th
     tbody
       - @statements.each do |statement|
         tr
           td = statement.date.strftime("%m/%d")
           td = statement.payee&.name
           td = statement.description
-          td = number_to_currency(statement.amount, unit: "¥", precision: 0)
+          td.amount = number_to_currency(statement.amount, unit: "¥", precision: 0)
           td = t("enums.statement.paid_by.#{statement.paid_by}")
           td = t("enums.statement.charged_to.#{statement.charged_to}")
-          td = link_to "編集", edit_statement_path(statement)
-          td = link_to "削除", statement_path(statement), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }
+          td.actions
+            = link_to "編集", edit_statement_path(statement)
+            = link_to "削除", statement_path(statement), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }

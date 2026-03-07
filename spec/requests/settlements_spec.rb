@@ -22,10 +22,10 @@ RSpec.describe "Settlements", type: :request do
 
       get settlement_path(year: 2026, month: 2)
 
-      expect(response.body).to include("直接精算")
-      expect(response.body).to include("共用精算")
-      expect(response.body).to include("共用口座精算")
-      expect(response.body).to include("最終精算額")
+      expect(response.body).to include("夫婦間の立替")
+      expect(response.body).to include("共用費の立替")
+      expect(response.body).to include("共用費での個人の買い物")
+      expect(response.body).to include("夫婦間の立替精算")
     end
   end
 end
