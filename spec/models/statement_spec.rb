@@ -28,4 +28,20 @@ RSpec.describe Statement, type: :model do
       end
     end
   end
+
+  describe '支払者と負担者の同一チェック' do
+    context '支払者と負担者が同一の場合' do
+      it 'invalid' do
+        statement = build(:statement, paid_by: :wife, charged_to: :wife)
+        expect(statement).to be_invalid
+      end
+    end
+
+    context '支払者と負担者が異なる場合' do
+      it 'valid' do
+        statement = build(:statement, paid_by: :wife, charged_to: :husband)
+        expect(statement).to be_valid
+      end
+    end
+  end
 end
