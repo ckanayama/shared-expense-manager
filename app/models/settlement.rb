@@ -1,30 +1,30 @@
 class Settlement
   include ActiveModel::Model
 
-  attr_reader :start_at, :end_at
+  attr_reader :year, :month
 
-  validates :start_at, presence: true
-  validates :end_at, presence: true
+  validates :year, presence: true
+  validates :month, presence: true
 
-  def initialize(start_at, end_at)
-    @start_at = start_at
-    @end_at = end_at
+  def initialize(year, month)
+    @year = year
+    @month = month
   end
 
   def direct
-    DirectSettlement.new(expenses)
+    DirectSettlement.new(statements)
   end
 
   def shared
-    SharedSettlement.new(expenses)
+    SharedSettlement.new(statements)
   end
 
   def shared_card
-    SharedAccountSettlement.new(expenses)
+    SharedAccountSettlement.new(statements)
   end
 
   private
-    def expenses
-      @expenses ||= Expense.where(occurred_on: start_at..end_at)
+    def statements
+      @statements ||= Statement.where(date: Date.new(year, month)..Date.new(year, month, -1))
     end
 end

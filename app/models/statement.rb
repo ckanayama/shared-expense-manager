@@ -1,8 +1,9 @@
-class Expense < ApplicationRecord
-  validates :occurred_on, presence: true
+class Statement < ApplicationRecord
+  validates :date, presence: true
   validates :amount, numericality: { greater_than: 0 }
   validates :paid_by, presence: true
   validates :charged_to, presence: true
+  validates :summary, presence: true
 
   enum :paid_by, {
     shared_account: 0,

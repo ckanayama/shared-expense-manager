@@ -1,6 +1,6 @@
 class SharedSettlement
-  def initialize(expenses)
-    @expenses = expenses
+  def initialize(statements)
+    @statements = statements
   end
 
   def to_wife
@@ -14,11 +14,11 @@ class SharedSettlement
   private
 
     def wife_paid
-      @expenses.where(paid_by: :wife, charged_to: :shared).sum(:amount)
+      @statements.where(paid_by: :wife, charged_to: :shared).sum(:amount)
     end
 
     def husband_paid
-      @expenses.where(paid_by: :husband, charged_to: :shared).sum(:amount)
+      @statements.where(paid_by: :husband, charged_to: :shared).sum(:amount)
     end
 
     def balance

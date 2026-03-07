@@ -1,26 +1,24 @@
 require "rails_helper"
 
 RSpec.describe Settlement, type: :model do
-  subject(:settlement) { Settlement.new(start_at, end_at) }
-  let(:start_at) { Date.new(2026, 3, 1) }
-  let(:end_at) { Date.new(2026, 3, 31) }
+  subject(:settlement) { Settlement.new(2026, 3) }
 
   before do
-    create(:expense, amount: 500, paid_by: :wife, charged_to: :husband, occurred_on: Date.new(2026, 3, 15))
-    create(:expense, amount: 300, paid_by: :husband, charged_to: :shared, occurred_on: Date.new(2026, 3, 20))
+    create(:statement, amount: 500, paid_by: :wife, charged_to: :husband, date: Date.new(2026, 3, 15))
+    create(:statement, amount: 300, paid_by: :husband, charged_to: :shared, date: Date.new(2026, 3, 20))
   end
 
   describe 'validation' do
-    context 'start_at がない場合' do
-      let(:start_at) { nil }
+    context 'year がない場合' do
+      subject(:settlement) { Settlement.new(nil, 3) }
 
       it 'invalid' do
         expect(settlement).to be_invalid
       end
     end
 
-    context 'end_at がない場合' do
-      let(:end_at) { nil }
+    context 'month がない場合' do
+      subject(:settlement) { Settlement.new(2026, nil) }
 
       it 'invalid' do
         expect(settlement).to be_invalid
@@ -39,7 +37,7 @@ RSpec.describe Settlement, type: :model do
       expect(settlement.direct).to be_a DirectSettlement
     end
 
-    it '期間内の個人間精算を計算する' do
+    it '対象月の個人間精算を計算する' do
       expect(settlement.direct.to_husband).to eq 500
     end
   end
@@ -49,15 +47,15 @@ RSpec.describe Settlement, type: :model do
       expect(settlement.shared).to be_a SharedSettlement
     end
 
-    it '期間内の共有費精算を計算する' do
+    it '対象月の共有費精算を計算する' do
       expect(settlement.shared.to_wife).to eq 150
     end
   end
 
-  context '期間外の経費は含まない' do
-    before { create(:expense, amount: 1000, paid_by: :wife, charged_to: :husband, occurred_on: Date.new(2026, 4, 1)) }
+  context '対象月外の明細は含まない' do
+    before { create(:statement, amount: 1000, paid_by: :wife, charged_to: :husband, date: Date.new(2026, 4, 1)) }
 
-    it '期間外の経費は精算に含まれない' do
+    it '対象月外の明細は精算に含まれない' do
       expect(settlement.direct.to_husband).to eq 500
     end
   end

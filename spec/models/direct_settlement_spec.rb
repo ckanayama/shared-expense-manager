@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe DirectSettlement, type: :model do
-  subject(:settlement) { DirectSettlement.new(Expense.all) }
+  subject(:settlement) { DirectSettlement.new(Statement.all) }
 
   context '妻が夫の買い物を代行した場合' do
-    before { create(:expense, amount: 300, paid_by: :wife, charged_to: :husband) }
+    before { create(:statement, amount: 300, paid_by: :wife, charged_to: :husband) }
 
     it '夫への請求額は300円' do
       expect(settlement.to_husband).to eq 300
@@ -16,7 +16,7 @@ RSpec.describe DirectSettlement, type: :model do
   end
 
   context '夫が妻の買い物を代行した場合' do
-    before { create(:expense, amount: 300, paid_by: :husband, charged_to: :wife) }
+    before { create(:statement, amount: 300, paid_by: :husband, charged_to: :wife) }
 
     it '夫への請求額は0円' do
       expect(settlement.to_husband).to eq 0
@@ -29,8 +29,8 @@ RSpec.describe DirectSettlement, type: :model do
 
   context 'お互いに買い物を代行した場合' do
     before do
-      create(:expense, amount: 500, paid_by: :wife, charged_to: :husband)
-      create(:expense, amount: 300, paid_by: :husband, charged_to: :wife)
+      create(:statement, amount: 500, paid_by: :wife, charged_to: :husband)
+      create(:statement, amount: 300, paid_by: :husband, charged_to: :wife)
     end
 
     it '夫への請求額は500円' do

@@ -1,8 +1,9 @@
 FactoryBot.define do
-  factory :expense do
+  factory :statement do
     amount { 1_000 }
     paid_by { :wife }
     charged_to { :husband }
-    occurred_on { Time.zone.now }
+    date { Time.zone.today }
+    summary { "テスト" }
   end
 end

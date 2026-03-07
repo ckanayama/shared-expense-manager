@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe SharedAccountSettlement, type: :model do
-  subject(:settlement) { SharedAccountSettlement.new(Expense.all) }
+  subject(:settlement) { SharedAccountSettlement.new(Statement.all) }
 
   context '妻が共用費で私物を購入した場合' do
     before do
-      create(:expense, amount: 500, paid_by: :shared_account, charged_to: :wife)
+      create(:statement, amount: 500, paid_by: :shared_account, charged_to: :wife)
     end
 
     it '妻に全額を請求する' do
@@ -19,7 +19,7 @@ RSpec.describe SharedAccountSettlement, type: :model do
 
   context '夫が共用費で私物を購入した場合' do
     before do
-      create(:expense, amount: 500, paid_by: :shared_account, charged_to: :husband)
+      create(:statement, amount: 500, paid_by: :shared_account, charged_to: :husband)
     end
 
     it '夫に全額を請求する' do

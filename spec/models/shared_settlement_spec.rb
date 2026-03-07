@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe SharedSettlement, type: :model do
-  subject(:settlement) { SharedSettlement.new(Expense.all) }
+  subject(:settlement) { SharedSettlement.new(Statement.all) }
 
   context '妻が共用物の買い物を立て替えた場合' do
     before do
-      create(:expense, amount: 1_000, paid_by: :wife, charged_to: :shared)
+      create(:statement, amount: 1_000, paid_by: :wife, charged_to: :shared)
     end
 
     it '夫に半額を請求する' do
@@ -19,7 +19,7 @@ RSpec.describe SharedSettlement, type: :model do
 
   context '夫が共用物の買い物を立て替えた場合' do
     before do
-      create(:expense, amount: 1_000, paid_by: :husband, charged_to: :shared)
+      create(:statement, amount: 1_000, paid_by: :husband, charged_to: :shared)
     end
 
     it '妻に半額を請求する' do

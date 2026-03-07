@@ -1,14 +1,14 @@
 require "rails_helper"
 
-RSpec.describe Expense, type: :model do
+RSpec.describe Statement, type: :model do
   describe 'amount_positive' do
-    let(:expense) { build(:expense, amount:) }
+    let(:statement) { build(:statement, amount:) }
 
     context 'amount is positive' do
       let(:amount) { 100 }
 
       it 'be valid' do
-        expect(expense).to be_valid
+        expect(statement).to be_valid
       end
     end
 
@@ -16,7 +16,7 @@ RSpec.describe Expense, type: :model do
       let(:amount) { 0 }
 
       it 'be valid' do
-        expect(expense).to be_invalid
+        expect(statement).to be_invalid
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Expense, type: :model do
       let(:amount) { -100 }
 
       it 'not be valid' do
-        expect(expense).to be_invalid
+        expect(statement).to be_invalid
       end
     end
   end
