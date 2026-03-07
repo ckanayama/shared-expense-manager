@@ -6,6 +6,7 @@ gem "bootsnap", require: false
 gem "importmap-rails"
 gem "propshaft"
 gem "puma", ">= 5.0"
+gem "slim-rails"
 gem "solid_cache"
 gem "solid_queue"
 gem "sqlite3", ">= 2.1"
