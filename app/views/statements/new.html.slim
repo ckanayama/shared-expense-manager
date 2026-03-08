@@ -50,4 +50,6 @@ h1
           td.amount = number_to_currency(statement.amount, unit: "¥", precision: 0)
           td = t("enums.statement.paid_by.#{statement.paid_by}")
           td = t("enums.statement.charged_to.#{statement.charged_to}")
-          td.actions = link_to "編集", edit_statement_path(statement)
+          td.actions
+            = link_to "編集", edit_statement_path(statement)
+            = link_to "削除", statement_path(statement), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }
