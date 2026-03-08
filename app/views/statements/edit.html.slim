@@ -6,7 +6,7 @@ h1
       - @statement.errors.full_messages.each do |message|
         li
           = message
-= form_with(model: @statement) do |form|
+= form_with(model: @statement, class: "form-card") do |form|
   .form-field
     = form.label :date
     = form.date_field :date

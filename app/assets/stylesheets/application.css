@@ -103,7 +103,7 @@ a:hover {
 }
 
 /* ===== Forms ===== */
-form {
+.form-card {
   background: var(--color-surface);
   padding: 20px;
   border-radius: var(--radius);

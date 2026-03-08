@@ -1,9 +1,6 @@
 h1
   = t("settlement.title", year: @settlement.year, month: @settlement.month)
-p.nav
-  = link_to "明細を入力する", new_statement_path
-  = link_to "この月の明細一覧", statements_path(year: @settlement.year, month: @settlement.month)
-= form_with url: settlement_path, method: :get, class: "mb-0" do |form|
+= form_with url: settlement_path, method: :get, class: "form-card mb-0" do |form|
   .form-inline
     = form.label :year, "年"
     = form.select :year, (2024..Date.current.year).to_a.reverse, selected: @settlement.year
