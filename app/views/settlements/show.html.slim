@@ -71,7 +71,7 @@ h2
   = t("settlement.net_amount")
 .result-card
   - net = @settlement.net_amount
-  p.result-highlight
+  p
     - if net > 0
       = t("settlement.net_to_husband", amount: number_to_currency(net, unit: "¥", precision: 0))
     - elsif net < 0
@@ -88,5 +88,47 @@ h2
     = t("settlement.repay_wife", amount: number_to_currency(wife_repay, unit: "¥", precision: 0))
   p
     = t("settlement.repay_husband", amount: number_to_currency(husband_repay, unit: "¥", precision: 0))
-  p.result-total
-    = t("settlement.repay_total", amount: number_to_currency(wife_repay + husband_repay, unit: "¥", precision: 0))
+
+- total = @settlement.husband_to_wife_total
+.message-section
+  .character
+    - if (src = random_character_image)
+      = image_tag src, class: "character-img"
+    - else
+      .character-face
+  div
+    .message-label 夫へ
+    .speech-bubble
+      - if total > 0
+        = t("settlement.message_husband_pays", amount: number_to_currency(total, unit: "¥", precision: 0))
+      - elsif total < 0
+        = t("settlement.message_wife_pays", amount: number_to_currency(-total, unit: "¥", precision: 0))
+      - else
+        = t("settlement.message_even")
+
+- repay_total = wife_repay + husband_repay
+- net = @settlement.net_amount
+- wife_pays_husband = net > 0 ? net : 0
+.message-section
+  .character
+    - if (src = random_character_image)
+      = image_tag src, class: "character-img"
+    - else
+      .character-face
+  div
+    .message-label 妻へ
+    .speech-bubble
+      - tasks = []
+      - if wife_pays_husband > 0
+        - tasks << t("settlement.message_wife_task_pay_husband", amount: number_to_currency(wife_pays_husband, unit: "¥", precision: 0))
+      - if repay_total > 0
+        - tasks << t("settlement.message_wife_task_repay", amount: number_to_currency(repay_total, unit: "¥", precision: 0))
+      - if tasks.any?
+        = t("settlement.message_wife_prefix")
+        br
+        - tasks.each do |task|
+          | ・
+          = task
+          br
+      - else
+        = t("settlement.message_wife_nothing")

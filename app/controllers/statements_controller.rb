@@ -9,7 +9,7 @@ class StatementsController < ApplicationController
 
   def new
     @statement = Statement.new(date: Date.current)
-    @recent_statements = Statement.includes(:payee).order(date: :desc).limit(5)
+    @recent_statements = Statement.includes(:payee).order(created_at: :desc).limit(5)
   end
 
   def create
@@ -18,7 +18,7 @@ class StatementsController < ApplicationController
     if @statement.save
       redirect_to new_statement_path, notice: "明細を保存しました"
     else
-      @recent_statements = Statement.includes(:payee).order(date: :desc).limit(5)
+      @recent_statements = Statement.includes(:payee).order(created_at: :desc).limit(5)
       render :new, status: :unprocessable_entity
     end
   end

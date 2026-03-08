@@ -29,6 +29,12 @@ class Settlement
     to_wife - to_husband
   end
 
+  # 夫が妻（会計管理者）に渡す合計額
+  # 正なら夫→妻、負なら妻→夫
+  def husband_to_wife_total
+    -net_amount + shared_card.to_husband
+  end
+
   private
     def statements
       @statements ||= Statement.where(date: Date.new(year, month)..Date.new(year, month, -1))

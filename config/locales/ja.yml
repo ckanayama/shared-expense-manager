@@ -38,7 +38,13 @@ ja:
     repay_shared_account: 共用口座への返済
     repay_wife: "妻が共用口座に %{amount} 返済"
     repay_husband: "夫が共用口座に %{amount} 返済"
-    repay_total: "合計 %{amount} を共用口座に入金"
+    message_husband_pays: "今月は %{amount} を妻に渡してね！"
+    message_wife_pays: "今月は妻から %{amount} 受け取ってね！"
+    message_even: "今月は精算なしだよ！"
+    message_wife_prefix: "今月のタスクだよ！"
+    message_wife_task_pay_husband: "夫に %{amount} 支払う"
+    message_wife_task_repay: "共用口座に %{amount} 入金する"
+    message_wife_nothing: "今月はやることないよ！"
   helpers:
     submit:
       statement:
