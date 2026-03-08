@@ -11,5 +11,7 @@ Rails.application.routes.draw do
 
   root "statements#new"
   resources :statements, only: [ :new, :create, :index, :edit, :update, :destroy ]
-  resource :settlement, only: [ :show ]
+  resource :settlement, only: [ :show ] do
+    resource :confirmation, only: [ :create ], controller: "settlement_confirmations"
+  end
 end

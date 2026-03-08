@@ -41,6 +41,8 @@ ja:
     message_even: "今月は精算なしだよ！"
     message_wife_task_repay: "共用口座に %{amount} 入金してね！"
     message_wife_nothing: "今月はやることないよ！"
+    confirmed: "確定しました"
+    unconfirmed: "確定を取り消しました"
   helpers:
     submit:
       statement:

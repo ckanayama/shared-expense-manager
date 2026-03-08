@@ -1,5 +1,7 @@
 h1
   | 明細編集
+- if @confirmed_month_warning
+  .warning= @confirmed_month_warning
 - if @statement.errors.any?
   #error_explanation
     ul
@@ -27,5 +29,3 @@ h1
     = form.select :charged_to, [["妻", "wife"], ["夫", "husband"], ["共用", "shared"]]
   .form-actions
     = form.submit
-p.nav.mt-16
-  = link_to "戻る", statements_path(year: @statement.date.year, month: @statement.date.month)

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_07_061231) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_08_050312) do
+  create_table "confirmed_settlements", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "month", null: false
+    t.datetime "updated_at", null: false
+    t.integer "year", null: false
+    t.index ["year", "month"], name: "index_confirmed_settlements_on_year_and_month", unique: true
+  end
+
   create_table "payees", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false

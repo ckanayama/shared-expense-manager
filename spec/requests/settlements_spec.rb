@@ -25,7 +25,7 @@ RSpec.describe "Settlements", type: :request do
       expect(response.body).to include("夫婦間の立替")
       expect(response.body).to include("共用費の立替")
       expect(response.body).to include("共用費での個人の買い物")
-      expect(response.body).to include("夫婦間の立替精算")
+      expect(response.body).to include("妻が夫に")
     end
   end
 end

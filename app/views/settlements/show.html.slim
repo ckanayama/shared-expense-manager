@@ -1,5 +1,10 @@
-h1
-  = t("settlement.title", year: @settlement.year, month: @settlement.month)
+.settlement-header
+  h1
+    = t("settlement.title", year: @settlement.year, month: @settlement.month)
+  - if @confirmed
+    span.confirmed-badge 確定済み
+  - else
+    = button_to "確定する", settlement_confirmation_path(year: @settlement.year, month: @settlement.month), method: :post, class: "btn-confirm", data: { turbo_confirm: "この月の精算を確定しますか？" }
 = form_with url: settlement_path, method: :get, class: "form-card mb-0" do |form|
   .form-inline
     = form.label :year, "年"
@@ -7,6 +12,10 @@ h1
     = form.label :month, "月"
     = form.select :month, (1..12).to_a, selected: @settlement.month
     = form.submit "表示"
+
+- if notice.present?
+  p#notice
+    = notice
 
 - total = @settlement.husband_to_wife_total
 .message-section
@@ -123,3 +132,4 @@ p.settlement-result
       = t("settlement.repay_husband", amount: number_to_currency(card.to_husband, unit: "¥", precision: 0))
   - else
     = t("settlement.net_zero")
+

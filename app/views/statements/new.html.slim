@@ -3,6 +3,8 @@ h1
 - if notice.present?
   p#notice
     = notice
+- if @confirmed_month_warning
+  .warning= @confirmed_month_warning
 - if @statement.errors.any?
   #error_explanation
     ul

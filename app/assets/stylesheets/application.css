@@ -372,21 +372,22 @@ td.amount {
   margin-bottom: 16px;
 }
 
-/* ===== Confirmation ===== */
-.confirmation-section {
+/* ===== Settlement header ===== */
+.settlement-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.settlement-header h1 {
+  margin-bottom: 0;
 }
 
 .confirmed-badge {
   display: inline-block;
-  background: var(--color-success);
-  color: #fff;
-  padding: 6px 16px;
-  border-radius: var(--radius);
-  font-size: 0.9rem;
+  padding: 4px 12px;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
@@ -394,31 +395,19 @@ td.amount {
   background: var(--color-success);
   color: #fff;
   border: none;
-  padding: 10px 24px;
+  padding: 4px 12px;
   border-radius: var(--radius);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-family: inherit;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .btn-confirm:hover {
   opacity: 0.85;
 }
 
-.btn-cancel-confirm {
-  background: var(--color-text-muted);
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: var(--radius);
-  font-size: 0.85rem;
-  font-family: inherit;
-  cursor: pointer;
-}
 
-.btn-cancel-confirm:hover {
-  opacity: 0.85;
-}
 
 /* ===== Utility ===== */
 .mb-0 { margin-bottom: 0; }
