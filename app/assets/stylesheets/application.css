@@ -93,14 +93,23 @@ a:hover {
   text-decoration: none;
 }
 
-/* ===== Notice ===== */
-#notice {
-  background: var(--color-primary-light);
-  color: var(--color-primary);
-  padding: 8px 16px;
+/* ===== Flash messages ===== */
+.flash {
+  padding: 10px 16px;
   border-radius: var(--radius);
   font-size: 0.9rem;
   margin-bottom: 16px;
+}
+
+.flash-notice {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.flash-warning {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
 }
 
 /* ===== Errors ===== */
@@ -359,17 +368,6 @@ td.amount {
   text-align: center;
   color: var(--color-text-muted);
   padding: 32px;
-}
-
-/* ===== Warning ===== */
-.warning {
-  background: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffc107;
-  padding: 10px 16px;
-  border-radius: var(--radius);
-  font-size: 0.9rem;
-  margin-bottom: 16px;
 }
 
 /* ===== Settlement header ===== */

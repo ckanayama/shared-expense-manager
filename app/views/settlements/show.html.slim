@@ -13,10 +13,6 @@
     = form.select :month, (1..12).to_a, selected: @settlement.month
     = form.submit "表示"
 
-- if notice.present?
-  p#notice
-    = notice
-
 - total = @settlement.husband_to_wife_total
 .message-section
   .character

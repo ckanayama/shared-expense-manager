@@ -7,10 +7,6 @@ h1
     = form.label :month, "月"
     = form.select :month, (1..12).to_a, selected: @month
     = form.submit "表示"
-- if notice.present?
-  p#notice
-    = notice
-
 - if @statements.empty?
   p.empty この月の明細はありません。
 - else
