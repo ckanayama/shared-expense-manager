@@ -25,7 +25,10 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.8;
-  padding: 24px 16px 48px;
+}
+
+.body {
+  padding: 0 16px 48px;
   max-width: 1024px;
   margin: 0 auto;
 }
@@ -67,20 +70,23 @@ a:hover {
 }
 
 /* ===== Global Navigation ===== */
+.global-nav-wrapper {
+  margin-bottom: 20px;
+  padding: 4px;
+  background-color: #fff;
+}
+
 .global-nav {
   display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
-  background: var(--color-surface);
-  border-radius: var(--radius);
-  padding: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  justify-content: space-around;
+  max-width: 1024px;
+  margin: 0 auto;
 }
 
 .global-nav a {
   flex: 1;
   text-align: center;
-  padding: 10px 8px;
+  padding: 5px;
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--color-text);

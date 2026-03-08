@@ -21,15 +21,17 @@ html
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
   body
-    nav.global-nav
-      - d = latest_statement_month
-      = link_to "明細入力", new_statement_path
-      = link_to "明細一覧", statements_path(year: d.year, month: d.month)
-      = link_to "精算結果", settlement_path(year: d.year, month: d.month)
-    - if flash[:notice]
-      .flash.flash-notice= flash[:notice]
-    - if flash[:warning]
-      .flash.flash-warning= flash[:warning]
-    - if @confirmed_month_warning
-      .flash.flash-warning= @confirmed_month_warning
-    = yield
+    .global-nav-wrapper
+      nav.global-nav
+        - d = latest_statement_month
+        = link_to "明細入力", new_statement_path
+        = link_to "明細一覧", statements_path(year: d.year, month: d.month)
+        = link_to "精算結果", settlement_path(year: d.year, month: d.month)
+    .body
+      - if flash[:notice]
+        .flash.flash-notice= flash[:notice]
+      - if flash[:warning]
+        .flash.flash-warning= flash[:warning]
+      - if @confirmed_month_warning
+        .flash.flash-warning= @confirmed_month_warning
+      = yield
