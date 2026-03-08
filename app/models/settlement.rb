@@ -35,6 +35,11 @@ class Settlement
     -net_amount + shared_card.to_husband
   end
 
+  # 共有口座への返済合計
+  def repay_total
+    shared_card.to_wife + shared_card.to_husband
+  end
+
   private
     def statements
       @statements ||= Statement.where(date: Date.new(year, month)..Date.new(year, month, -1))

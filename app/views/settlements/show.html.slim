@@ -11,8 +11,43 @@ p.nav
     = form.select :month, (1..12).to_a, selected: @settlement.month
     = form.submit "表示"
 
+- total = @settlement.husband_to_wife_total
+.message-section
+  .character
+    - if (src = random_character_image)
+      = image_tag src, class: "character-img"
+    - else
+      .character-face
+  div
+    .message-label 夫へ
+    .speech-bubble
+      - if total > 0
+        = t("settlement.message_husband_pays", amount: number_to_currency(total, unit: "¥", precision: 0))
+      - elsif total < 0
+        = t("settlement.message_wife_pays", amount: number_to_currency(-total, unit: "¥", precision: 0))
+      - else
+        = t("settlement.message_even")
+
+- repay_total = @settlement.repay_total
+.message-section
+  .character
+    - if (src = random_character_image)
+      = image_tag src, class: "character-img"
+    - else
+      .character-face
+  div
+    .message-label 妻へ
+    .speech-bubble
+      - if repay_total > 0
+        = t("settlement.message_wife_task_repay", amount: number_to_currency(repay_total, unit: "¥", precision: 0))
+      - else
+        = t("settlement.message_wife_nothing")
+
+hr
+
 h2
   = t("settlement.direct")
+
 table
   thead
     tr
@@ -28,6 +63,14 @@ table
       td = t("enums.statement.paid_by.wife")
       td = t("enums.statement.paid_by.husband")
       td.amount = number_to_currency(@settlement.direct.to_husband, unit: "¥", precision: 0)
+- direct = @settlement.direct
+p.settlement-result
+  - if direct.to_wife > direct.to_husband
+    = t("settlement.net_to_husband", amount: number_to_currency(direct.to_wife - direct.to_husband, unit: "¥", precision: 0))
+  - elsif direct.to_husband > direct.to_wife
+    = t("settlement.net_to_wife", amount: number_to_currency(direct.to_husband - direct.to_wife, unit: "¥", precision: 0))
+  - else
+    = t("settlement.net_zero")
 
 h2
   = t("settlement.shared")
@@ -40,12 +83,20 @@ table
   tbody
     tr
       td = t("enums.statement.paid_by.husband")
-      td = t("enums.statement.paid_by.wife")
-      td.amount = number_to_currency(@settlement.shared.to_wife, unit: "¥", precision: 0)
+      td = t("enums.statement.charged_to.shared")
+      td.amount = number_to_currency(@settlement.shared.husband_paid, unit: "¥", precision: 0)
     tr
       td = t("enums.statement.paid_by.wife")
-      td = t("enums.statement.paid_by.husband")
-      td.amount = number_to_currency(@settlement.shared.to_husband, unit: "¥", precision: 0)
+      td = t("enums.statement.charged_to.shared")
+      td.amount = number_to_currency(@settlement.shared.wife_paid, unit: "¥", precision: 0)
+- shared = @settlement.shared
+p.settlement-result
+  - if shared.to_wife > 0
+    = t("settlement.net_to_husband", amount: number_to_currency(shared.to_wife, unit: "¥", precision: 0))
+  - elsif shared.to_husband > 0
+    = t("settlement.net_to_wife", amount: number_to_currency(shared.to_husband, unit: "¥", precision: 0))
+  - else
+    = t("settlement.net_zero")
 
 h2
   = t("settlement.shared_card")
@@ -64,71 +115,14 @@ table
       td = t("enums.statement.paid_by.shared_account")
       td = t("enums.statement.paid_by.husband")
       td.amount = number_to_currency(@settlement.shared_card.to_husband, unit: "¥", precision: 0)
-
-hr
-
-h2
-  = t("settlement.net_amount")
-.result-card
-  - net = @settlement.net_amount
-  p
-    - if net > 0
-      = t("settlement.net_to_husband", amount: number_to_currency(net, unit: "¥", precision: 0))
-    - elsif net < 0
-      = t("settlement.net_to_wife", amount: number_to_currency(-net, unit: "¥", precision: 0))
-    - else
-      = t("settlement.net_zero")
-
-h2
-  = t("settlement.repay_shared_account")
-- wife_repay = @settlement.shared_card.to_wife
-- husband_repay = @settlement.shared_card.to_husband
-.result-card
-  p
-    = t("settlement.repay_wife", amount: number_to_currency(wife_repay, unit: "¥", precision: 0))
-  p
-    = t("settlement.repay_husband", amount: number_to_currency(husband_repay, unit: "¥", precision: 0))
-
-- total = @settlement.husband_to_wife_total
-.message-section
-  .character
-    - if (src = random_character_image)
-      = image_tag src, class: "character-img"
-    - else
-      .character-face
-  div
-    .message-label 夫へ
-    .speech-bubble
-      - if total > 0
-        = t("settlement.message_husband_pays", amount: number_to_currency(total, unit: "¥", precision: 0))
-      - elsif total < 0
-        = t("settlement.message_wife_pays", amount: number_to_currency(-total, unit: "¥", precision: 0))
-      - else
-        = t("settlement.message_even")
-
-- repay_total = wife_repay + husband_repay
-- net = @settlement.net_amount
-- wife_pays_husband = net > 0 ? net : 0
-.message-section
-  .character
-    - if (src = random_character_image)
-      = image_tag src, class: "character-img"
-    - else
-      .character-face
-  div
-    .message-label 妻へ
-    .speech-bubble
-      - tasks = []
-      - if wife_pays_husband > 0
-        - tasks << t("settlement.message_wife_task_pay_husband", amount: number_to_currency(wife_pays_husband, unit: "¥", precision: 0))
-      - if repay_total > 0
-        - tasks << t("settlement.message_wife_task_repay", amount: number_to_currency(repay_total, unit: "¥", precision: 0))
-      - if tasks.any?
-        = t("settlement.message_wife_prefix")
-        br
-        - tasks.each do |task|
-          | ・
-          = task
-          br
-      - else
-        = t("settlement.message_wife_nothing")
+- card = @settlement.shared_card
+p.settlement-result
+  - if card.to_wife > 0 || card.to_husband > 0
+    - if card.to_wife > 0
+      = t("settlement.repay_wife", amount: number_to_currency(card.to_wife, unit: "¥", precision: 0))
+    - if card.to_wife > 0 && card.to_husband > 0
+      br
+    - if card.to_husband > 0
+      = t("settlement.repay_husband", amount: number_to_currency(card.to_husband, unit: "¥", precision: 0))
+  - else
+    = t("settlement.net_zero")
