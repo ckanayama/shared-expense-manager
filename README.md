@@ -1,45 +1,47 @@
 # Shared Expense Manager
 
-A simple Rails application to help couples manage shared expenses and monthly settlements.
+夫婦の共有支出を管理し、月ごとの精算を自動計算するシンプルな Rails アプリケーションです。
 
-## Features
+## 機能
 
-- Record shared expenses
-- Record personal transfers
-- Automatic monthly settlement calculation
-- Local-first and simple design
+- 明細の入力・編集・削除
+- 月別の明細一覧表示
+- 月ごとの精算額の自動計算（夫婦間の立替 / 共用費 / 共用口座）
+- 精算の確定機能（確定済み月の明細変更時に警告表示）
 
-## Built With
+## 技術スタック
 
 - Ruby 3.2.6
 - Ruby on Rails 8.0.4
 - SQLite 3
 
-## Getting Started
+## セットアップ
 
-### 1. Clone the repository
+### 1. リポジトリをクローン
 
 ```bash
 $ git clone https://github.com/ckanayama/shared-expense-manager.git
 $ cd shared-expense-manager
 ```
 
-### 2. Setup
+### 2. 依存関係のインストールとDB作成
 
 ```bash
 $ bundle install
-$ bin/rails db:create
-$ bin/rails db:migrate
+$ bin/rails db:setup
 ```
 
-### 3. Start the server
+`db:setup` でデータベースの作成・マイグレーション・初期データ（支払い先）の投入がまとめて実行されます。
+
+### 3. サーバー起動
 
 ```bash
 $ bin/dev
 ```
 
-## Usage
+## 使い方
 
-1. Add expenses with date, payer, and amount.
-2. Select a month to view monthly summary.
-3. The system calculates how much each person should settle.
+1. 「明細入力」から日付・金額・支払い先・支払者・負担者を入力して明細を登録します。
+2. 「明細一覧」で月別の明細を確認・編集・削除できます。
+3. 「精算結果」でその月の精算額が自動計算されます。
+4. 精算結果の画面から「確定する」を押すと、その月の精算を確定できます。
